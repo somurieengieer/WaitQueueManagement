@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Waiters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Que</th>
+      <th>Order number</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @waiters.each do |waiter| %>
+      <tr>
+        <td><%= waiter.name %></td>
+        <td><%= waiter.que_id %></td>
+        <td><%= waiter.order_number %></td>
+        <td><%= link_to 'Show', waiter %></td>
+        <td><%= link_to 'Edit', edit_waiter_path(waiter) %></td>
+        <td><%= link_to 'Destroy', waiter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Waiter', new_waiter_path %>

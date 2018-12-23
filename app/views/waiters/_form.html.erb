@@ -1,10 +1,10 @@
-<%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
+<%= form_with(model: waiter, local: true) do |form| %>
+  <% if waiter.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(waiter.errors.count, "error") %> prohibited this waiter from being saved:</h2>
 
       <ul>
-      <% user.errors.full_messages.each do |message| %>
+      <% waiter.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -22,8 +22,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :wait_number %>
-    <%= form.number_field :wait_number %>
+    <%= form.label :order_number %>
+    <%= form.number_field :order_number %>
   </div>
 
   <div class="actions">
