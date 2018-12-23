@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Wait Queues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Count</th>
+      <th>Admin</th>
+      <th>Reset time</th>
+      <th>Auto reset</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wait_queues.each do |wait_queue| %>
+      <tr>
+        <td><%= wait_queue.name %></td>
+        <td><%= wait_queue.count %></td>
+        <td><%= wait_queue.admin_id %></td>
+        <td><%= wait_queue.reset_time %></td>
+        <td><%= wait_queue.auto_reset %></td>
+        <td><%= link_to 'Show', wait_queue %></td>
+        <td><%= link_to 'Edit', edit_wait_queue_path(wait_queue) %></td>
+        <td><%= link_to 'Destroy', wait_queue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wait Queue', new_wait_queue_path %>

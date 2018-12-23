@@ -1,0 +1,2 @@
+class WaitQueue < ApplicationRecord
+end
