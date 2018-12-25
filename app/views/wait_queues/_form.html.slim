@@ -12,11 +12,10 @@
     = form.label :name
     = form.text_field :name
   .field
-    = form.label :count
-    = form.number_field :count
+    = form.hidden_field :count
   .field
     = form.label :admin_id
-    = form.number_field :admin_id
+    = form.number_field :admin_id, readonly:true
   .field
     = form.label :reset_time
     = form.time_select :reset_time

@@ -15,6 +15,10 @@ class WaitQueuesController < ApplicationController
   # GET /wait_queues/new
   def new
     @wait_queue = WaitQueue.new
+    @wait_queue.count = 1
+    if params[:admin_id] then
+      @wait_queue.admin_id = params[:admin_id]
+    end
   end
 
   # GET /wait_queues/1/edit
