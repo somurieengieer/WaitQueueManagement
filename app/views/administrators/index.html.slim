@@ -1,0 +1,27 @@
+p#notice
+  = notice
+h1
+  | Administrators
+table
+  thead
+    tr
+      th
+        | Mail
+      th
+        | Password
+      th[colspan="3"]
+  tbody
+    - @administrators.each do |administrator|
+      tr
+        td
+          = administrator.mail
+        td
+          = administrator.password
+        td
+          = link_to 'Show', administrator
+        td
+          = link_to 'Edit', edit_administrator_path(administrator)
+        td
+          = link_to 'Destroy', administrator, method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Administrator', new_administrator_path

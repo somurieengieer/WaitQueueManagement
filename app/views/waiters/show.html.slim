@@ -1,0 +1,17 @@
+p#notice
+  = notice
+p
+  strong
+    | Name:
+  = @waiter.name
+p
+  strong
+    | Que:
+  = @waiter.que_id
+p
+  strong
+    | Order number:
+  = @waiter.order_number
+= link_to 'Edit', edit_waiter_path(@waiter)
+|  | 
+= link_to 'Back', waiters_path

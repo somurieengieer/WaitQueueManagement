@@ -1,0 +1,21 @@
+= form_with(model: waiter, local: true) do |form|
+  - if waiter.errors.any?
+    #error_explanation
+      h2
+        = pluralize(waiter.errors.count, "error")
+        |  prohibited this waiter from being saved:
+      ul
+        - waiter.errors.full_messages.each do |message|
+          li
+            = message
+  .field
+    = form.label :name
+    = form.text_field :name
+  .field
+    = form.label :que_id
+    = form.number_field :que_id
+  .field
+    = form.label :order_number
+    = form.number_field :order_number
+  .actions
+    = form.submit

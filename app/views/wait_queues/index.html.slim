@@ -1,0 +1,39 @@
+p#notice
+  = notice
+h1
+  | Wait Queues
+table
+  thead
+    tr
+      th
+        | Name
+      th
+        | Count
+      th
+        | Admin
+      th
+        | Reset time
+      th
+        | Auto reset
+      th[colspan="3"]
+  tbody
+    - @wait_queues.each do |wait_queue|
+      tr
+        td
+          = wait_queue.name
+        td
+          = wait_queue.count
+        td
+          = wait_queue.admin_id
+        td
+          = wait_queue.reset_time
+        td
+          = wait_queue.auto_reset
+        td
+          = link_to 'Show', wait_queue
+        td
+          = link_to 'Edit', edit_wait_queue_path(wait_queue)
+        td
+          = link_to 'Destroy', wait_queue, method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Wait Queue', new_wait_queue_path

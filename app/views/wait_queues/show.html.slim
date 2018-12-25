@@ -1,0 +1,25 @@
+p#notice
+  = notice
+p
+  strong
+    | Name:
+  = @wait_queue.name
+p
+  strong
+    | Count:
+  = @wait_queue.count
+p
+  strong
+    | Admin:
+  = @wait_queue.admin_id
+p
+  strong
+    | Reset time:
+  = @wait_queue.reset_time
+p
+  strong
+    | Auto reset:
+  = @wait_queue.auto_reset
+= link_to 'Edit', edit_wait_queue_path(@wait_queue)
+|  | 
+= link_to 'Back', wait_queues_path
