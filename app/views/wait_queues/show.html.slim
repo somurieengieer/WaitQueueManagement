@@ -26,3 +26,18 @@ p
 |  | 
 = form_with model: @wait_queue, local: true, url: countup_wait_queue_path do |f|
   = f.submit "CountUp", class: "btn btn-primary"
+br
+table.table.table-scripted
+  thead
+    tr
+      th
+        | 名前
+      th
+        | 順番
+  tbody
+    - @waiters.each do |waiter|
+      tr
+        td
+          = waiter.name
+        td
+          = waiter.order_number

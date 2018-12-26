@@ -10,6 +10,7 @@ class WaitQueuesController < ApplicationController
   # GET /wait_queues/1
   # GET /wait_queues/1.json
   def show
+    @waiters = Waiter.where(que_id: @wait_queue.id)
   end
 
   # GET /wait_queues/new

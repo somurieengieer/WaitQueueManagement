@@ -6,6 +6,8 @@ table.table.table-scripted
   thead
     tr
       th
+        | ID
+      th
         | Name
       th
         | Count
@@ -19,6 +21,8 @@ table.table.table-scripted
   tbody
     - @wait_queues.each do |wait_queue|
       tr
+        td
+          = wait_queue.id
         td
           = wait_queue.name
         td
