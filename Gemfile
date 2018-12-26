@@ -59,3 +59,5 @@ gem 'jquery-rails'
 
 gem 'slim-rails'
 gem 'html2slim'
+gem 'bcrypt', '~> 3.1.9'
+

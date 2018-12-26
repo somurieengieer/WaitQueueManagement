@@ -1,5 +1,5 @@
 class WaitQueuesController < ApplicationController
-  before_action :set_wait_queue, only: [:show, :edit, :update, :destroy]
+  before_action :set_wait_queue, only: [:show, :edit, :update, :destroy, :countup]
 
   # GET /wait_queues
   # GET /wait_queues.json
@@ -16,8 +16,8 @@ class WaitQueuesController < ApplicationController
   def new
     @wait_queue = WaitQueue.new
     @wait_queue.count = 1
-    if params[:admin_id] then
-      @wait_queue.admin_id = params[:admin_id]
+    if session[:admin_id] then
+      @wait_queue.admin_id = session[:admin_id]
     end
   end
 
@@ -51,6 +51,18 @@ class WaitQueuesController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @wait_queue.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /wait_queues/1/countup
+  # PATCH/PUT /wait_queues/1/countup.json
+  def countup
+    respond_to do |format|
+      @wait_queue.count += 1
+      if @wait_queue.save
+        format.html { redirect_to @wait_queue, notice: 'CountUp successfully.' }
+        format.json { render :show, status: :ok, location: @wait_queue }
       end
     end
   end

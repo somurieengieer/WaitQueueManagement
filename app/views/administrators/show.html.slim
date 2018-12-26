@@ -7,7 +7,9 @@ p
 p
   strong
     | Password:
-  = @administrator.password
+  = @administrator.password_digest
 = link_to 'Edit', edit_administrator_path(@administrator)
 |  | 
 = link_to 'Back', administrators_path
+|  | 
+= link_to 'Destroy', @administrator, method: :delete, data: { confirm: 'Are you sure?' }

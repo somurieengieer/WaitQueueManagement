@@ -2,7 +2,7 @@ p#notice
   = notice
 h1
   | Administrators
-table
+table.table.table-scripted
   thead
     tr
       th
@@ -16,7 +16,7 @@ table
         td
           = administrator.mail
         td
-          = administrator.password
+          = administrator.password_digest
         td
           = link_to 'Show', administrator
         td
