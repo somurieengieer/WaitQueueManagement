@@ -4,7 +4,7 @@ class WaitQueuesController < ApplicationController
   # GET /wait_queues
   # GET /wait_queues.json
   def index
-    @wait_queues = WaitQueue.all
+    @wait_queues = WaitQueue.where(admin_id: session[:admin_id])
   end
 
   # GET /wait_queues/1
