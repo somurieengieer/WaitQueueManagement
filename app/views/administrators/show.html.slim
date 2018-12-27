@@ -2,6 +2,10 @@ p#notice
   = notice
 p
   strong
+    | Name:
+  = @administrator.name
+p
+  strong
     | Mail:
   = @administrator.mail
 = link_to 'Edit', edit_administrator_path(@administrator)
