@@ -1,6 +1,7 @@
 class TopController < ApplicationController
     def index
-        @wait_queue = WaitQueue.find_by(admin_id: session[:admin_id])
-
+        admin_id = session[:admin_id]
+        @wait_queue = WaitQueue.find_by(admin_id: admin_id)
+        @administrator = Administrator.find_by(id: admin_id)
     end
 end
