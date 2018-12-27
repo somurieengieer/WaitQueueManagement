@@ -25,6 +25,8 @@ Things you may want to cover:
 
 
 ## Usage
+Follow these steps to set up this project on your local.
+- Pull repository
 - $ docker-compose build
 - $ docker-compose run --rm app rails db:create
 - $ docker-compose run --rm app rails db:migrate

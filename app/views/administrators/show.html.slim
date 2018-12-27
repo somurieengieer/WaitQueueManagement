@@ -4,12 +4,24 @@ p
   strong
     | Mail:
   = @administrator.mail
-p
-  strong
-    | Password:
-  = @administrator.password_digest
 = link_to 'Edit', edit_administrator_path(@administrator)
 |  | 
 = link_to 'Back', administrators_path
 |  | 
 = link_to 'Destroy', @administrator, method: :delete, data: { confirm: 'Are you sure?' }
+
+table.table.table-striped.mt-3
+  thead
+    tr
+      th
+        | Wait queue's name
+      th
+        | Current order
+  tbody
+    - @wait_queues.each do | wait_queue|
+      tr
+        td
+          = link_to wait_queue.name, wait_queue
+          /= wait_queue.name
+        td
+          = wait_queue.count

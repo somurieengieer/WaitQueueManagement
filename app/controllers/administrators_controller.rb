@@ -10,6 +10,7 @@ class AdministratorsController < ApplicationController
   # GET /administrators/1
   # GET /administrators/1.json
   def show
+    @wait_queues = WaitQueue.where(admin_id: @administrator.id)
   end
 
   # GET /administrators/new

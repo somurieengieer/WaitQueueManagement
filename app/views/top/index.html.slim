@@ -4,27 +4,7 @@ html
     title
       | Sampleproject Top Page
   body
-    div.container
-      div.row
-        div.col-8
-          h1
-          | This is Top Page
-        div.col-4
-          div.dropdown
-            - if @administrator
-              button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                | Hello  #{@administrator.mail}
-              div.dropdown-menu aria-labelledby="dropdownMenuButton"
-                / div.dropdown-divider
-                a.dropdown-item
-                  = link_to 'Logout', logout_path, method: :delete
-            - else
-              button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                | ログイン
-              div.dropdown-menu aria-labelledby="dropdownMenuButton"
-                a.dropdown-item
-                  = link_to 'Login', login_path, method: :get
-    table.table.table-scripted
+    table.table.table-striped
       thead
         tr
           th
@@ -40,7 +20,7 @@ html
           td
             = link_to "Waiters list", waiters_path
 
-    table.table.table-scripted
+    table.table.table-striped
       thead
         tr
           th
