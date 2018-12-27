@@ -24,16 +24,25 @@ p
 |  | 
 = link_to 'Back', wait_queues_path
 |  | 
-= form_with model: @wait_queue, local: true, url: countup_wait_queue_path do |f|
-  = f.submit "CountUp", class: "btn btn-primary"
+ul.ist-inline
+  li.list-inline-item
+    = form_with model: @wait_queue, local: true, url: countup_wait_queue_path do |f|
+      = f.submit "CountUp", class: "btn btn-primary"
+  li.list-inline-item
+    = form_with model: @wait_queue, local: true, url: reset_wait_queue_path do |f|
+      = f.submit "Reset", class: "btn btn-danger", data: { confirm: 'Are you sure?' }
 br
+div.text-center
+  | current number is 
+  h2
+    =@wait_queue.count
 table.table.table-striped
   thead
     tr
       th
-        | 名前
+        | Waiter's Name
       th
-        | 順番
+        | Order
   tbody
     - @waiters.each do |waiter|
       tr

@@ -1,5 +1,5 @@
 class WaitQueuesController < ApplicationController
-  before_action :set_wait_queue, only: [:show, :edit, :update, :destroy, :countup]
+  before_action :set_wait_queue, only: [:show, :edit, :update, :destroy, :countup, :reset]
 
   # GET /wait_queues
   # GET /wait_queues.json
@@ -63,6 +63,18 @@ class WaitQueuesController < ApplicationController
       @wait_queue.count += 1
       if @wait_queue.save
         format.html { redirect_to @wait_queue, notice: 'CountUp successfully.' }
+        format.json { render :show, status: :ok, location: @wait_queue }
+      end
+    end
+  end
+  
+  # PATCH/PUT /wait_queues/1/reset
+  # PATCH/PUT /wait_queues/1/reset.json
+  def reset
+    respond_to do |format|
+      @wait_queue.count = 0
+      if @wait_queue.save
+        format.html { redirect_to @wait_queue, notice: 'Reset successfully.' }
         format.json { render :show, status: :ok, location: @wait_queue }
       end
     end
