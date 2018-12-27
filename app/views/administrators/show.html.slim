@@ -2,11 +2,11 @@ p#notice
   = notice
 p
   strong
-    | Name:
+    | Your Name:
   = @administrator.name
 p
   strong
-    | Mail:
+    | Your Mail:
   = @administrator.mail
 = link_to 'Edit', edit_administrator_path(@administrator)
 |  | 
@@ -29,3 +29,4 @@ table.table.table-striped.mt-3
           /= wait_queue.name
         td
           = wait_queue.count
+= link_to 'Create New "Wait Queue"', new_wait_queue_path

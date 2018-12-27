@@ -16,7 +16,7 @@ class WaitQueuesController < ApplicationController
   # GET /wait_queues/new
   def new
     @wait_queue = WaitQueue.new
-    @wait_queue.count = 1
+    @wait_queue.count = 0
     if session[:admin_id] then
       @wait_queue.admin_id = session[:admin_id]
     end

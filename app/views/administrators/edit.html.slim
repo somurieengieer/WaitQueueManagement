@@ -1,4 +1,7 @@
 h1
   | Editing Administrator
 = render 'form', administrator: @administrator
-= link_to 'Cancel Edit', @administrator
+ul.list-inline
+= link_to 'Cancel Edit', @administrator, class: "btn btn-secondary list-inline-item"
+
+= link_to 'Destroy', @administrator, method: :delete, class: "btn btn-danger list-inline-item", data: { confirm: 'Are you sure?' }
