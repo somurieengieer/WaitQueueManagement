@@ -17,6 +17,7 @@ nav.navbar.navbar-expand-md.navbar-dark.bg-dark
           a#dropdown01.nav-link.dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"
             | #{@administrator.mail}
           div.dropdown-menu aria-labelledby="dropdown01"
+            = link_to 'Edit Profile', edit_administrator_path, method: :get, class: 'dropdown-item'
             = link_to 'Logout', logout_path, method: :delete, class: 'dropdown-item'
         - else
           a#dropdown01.nav-link.dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"
