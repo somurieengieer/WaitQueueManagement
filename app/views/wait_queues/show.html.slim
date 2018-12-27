@@ -1,37 +1,42 @@
 p#notice
   = notice
-p
-  strong
-    | Name:
-  = @wait_queue.name
-p
-  strong
-    | Count:
-  = @wait_queue.count
-p
-  strong
-    | Admin:
-  = @wait_queue.admin_id
-p
-  strong
-    | Reset time:
-  = @wait_queue.reset_time
-p
-  strong
-    | Auto reset:
-  = @wait_queue.auto_reset
-= link_to 'Edit', edit_wait_queue_path(@wait_queue)
-|  | 
-= link_to 'Back', wait_queues_path
-|  | 
-ul.ist-inline
-  li.list-inline-item
-    = form_with model: @wait_queue, local: true, url: countup_wait_queue_path do |f|
-      = f.submit "CountUp", class: "btn btn-primary"
-  li.list-inline-item
-    = form_with model: @wait_queue, local: true, url: reset_wait_queue_path do |f|
-      = f.submit "Reset", class: "btn btn-danger", data: { confirm: 'Are you sure?' }
-br
+- if @login_administrator # TODO: othor user cannot view this page
+  p
+    strong
+      | Name:
+    = @wait_queue.name
+  p
+    strong
+      | Count:
+    = @wait_queue.count
+  p
+    strong
+      | Admin:
+    = @wait_queue.admin_id
+  p
+    strong
+      | Reset time:
+    = @wait_queue.reset_time
+  p
+    strong
+      | Auto reset:
+    = @wait_queue.auto_reset
+  = link_to 'Edit', edit_wait_queue_path(@wait_queue)
+  |  | 
+  = link_to 'Back', wait_queues_path
+  |  | 
+  ul.ist-inline
+    li.list-inline-item
+      = form_with model: @wait_queue, local: true, url: countup_wait_queue_path do |f|
+        = f.submit "CountUp", class: "btn btn-primary"
+    li.list-inline-item
+      = form_with model: @wait_queue, local: true, url: reset_wait_queue_path do |f|
+        = f.submit "Reset", class: "btn btn-danger", data: { confirm: 'Are you sure?' }
+  br
+  p
+    string
+      | Show page under this line to your "waiter".
+  hr
 div.text-center
   | current number is 
   h2
@@ -50,3 +55,5 @@ table.table.table-striped
           = waiter.name
         td
           = waiter.order_number
+div.text-center
+  = link_to 'Join this Wait Queue', new_waiter_path(que_id: @wait_queue.id), class: "btn btn-primary"
