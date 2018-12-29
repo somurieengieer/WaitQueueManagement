@@ -1,6 +1,6 @@
-# About system
-This system control "waiting queue" and "people waiting queue".
-Administrator(e.g. restraunt, hospital reception, any kind of shop...) can create "waiting queue" instead of conventional paper's waiting list.
+# About System
+This system control "waiting queue" and "people waiting queue".  
+Administrator(e.g. restraunt, hospital reception, any kind of shop...) can create "waiting queue" instead of conventional paper's waiting list.  
 Customer can go anywhere after entry "waiting queue" when that place crowded.
 
 # System Configuration
