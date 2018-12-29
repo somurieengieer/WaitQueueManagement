@@ -1,5 +1,7 @@
+
 class WaitQueuesController < ApplicationController
   before_action :set_wait_queue, only: [:show, :edit, :update, :destroy, :countup, :reset]
+  before_action :create_qr, only: [:show, :create, :update, :countup, :reset]
 
   # GET /wait_queues
   # GET /wait_queues.json
@@ -99,5 +101,20 @@ class WaitQueuesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def wait_queue_params
       params.require(:wait_queue).permit(:name, :count, :admin_id, :reset_time, :auto_reset)
+    end
+    
+    def create_qr
+      options = {
+        fill: 'white',
+        color: 'black',
+        size: 100,
+        border_modules: 3,
+        module_px_size: 5,
+        file: nil,
+      }
+      new_waiter_fullpath = request.original_url.match(/(http.?\/\/*.+?)\//)[1] + \
+          Rails.application.routes.url_helpers.new_waiter_path + "?que_id=" + @wait_queue.id.to_s
+      qr = RQRCode::QRCode.new(new_waiter_fullpath).as_png(options)
+      $qrcode_tag = ChunkyPNG::Image.from_datastream(qr.resize(500,500).to_datastream).to_data_url
     end
 end

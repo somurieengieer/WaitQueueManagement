@@ -57,3 +57,11 @@ table.table.table-striped
           = waiter.order_number
 div.text-center
   = link_to 'Join this Wait Queue', new_waiter_path(que_id: @wait_queue.id), class: "btn btn-primary"
+  br
+  string
+    = @qr_text
+  br
+  string
+    = @test
+  br
+  img src=$qrcode_tag alt="qrcode_test"
