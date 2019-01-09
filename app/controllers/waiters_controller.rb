@@ -15,6 +15,9 @@ class WaitersController < ApplicationController
   # GET /waiters/new
   def new
     @waiter = Waiter.new
+    if params[:que_id]
+      @waiter.que_id = params[:que_id]
+    end
   end
 
   # GET /waiters/1/edit

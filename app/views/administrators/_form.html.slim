@@ -9,6 +9,9 @@
           li
             = message
   .field
+    = form.label :name
+    = form.text_field :name
+  .field
     = form.label :mail
     = form.text_field :mail
   .field
@@ -18,4 +21,4 @@
     = form.label :password_confirmation
     = form.text_field :password_confirmation
   .actions
-    = form.submit
+    = form.submit class: "btn btn-primary"

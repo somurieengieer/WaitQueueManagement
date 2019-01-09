@@ -10,6 +10,7 @@ class AdministratorsController < ApplicationController
   # GET /administrators/1
   # GET /administrators/1.json
   def show
+    @wait_queues = WaitQueue.where(admin_id: @administrator.id)
   end
 
   # GET /administrators/new
@@ -55,6 +56,7 @@ class AdministratorsController < ApplicationController
   # DELETE /administrators/1.json
   def destroy
     @administrator.destroy
+    reset_session
     respond_to do |format|
       format.html { redirect_to administrators_url, notice: 'Administrator was successfully destroyed.' }
       format.json { head :no_content }
@@ -69,6 +71,6 @@ class AdministratorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def administrator_params
-      params.require(:administrator).permit(:mail, :password)
+      params.require(:administrator).permit(:name, :mail, :password)
     end
 end

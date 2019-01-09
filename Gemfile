@@ -61,3 +61,6 @@ gem 'slim-rails'
 gem 'html2slim'
 gem 'bcrypt', '~> 3.1.9'
 
+gem 'rmagick', :require => 'RMagick'
+gem 'rqrcode_png'
+gem 'ghostscript'

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :wait_queues do
     member do
       patch 'countup'
+      patch 'reset'
     end
   end
   root 'top#index'
