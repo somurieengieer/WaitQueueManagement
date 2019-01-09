@@ -25,5 +25,7 @@ table.table.table-scripted
           = link_to 'Destroy', administrator, method: :delete, data: { confirm: 'Are you sure?' }
         td
           = link_to 'Create New Queue', new_wait_queue_path(admin_id: administrator.id)
+        td
+          = link_to 'Queues List', wait_queues_path
 br
 = link_to 'New Administrator', new_administrator_path
