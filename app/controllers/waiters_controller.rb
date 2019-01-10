@@ -15,8 +15,15 @@ class WaitersController < ApplicationController
   # GET /waiters/new
   def new
     @waiter = Waiter.new
+    @waiter.status = Waiter.getStatusAry[0][1]
     if params[:que_id]
       @waiter.que_id = params[:que_id]
+      max = Waiter.where("que_id = ?", @waiter.que_id).maximum(:order_number)
+      if max.nil?
+        @waiter.order_number = 1
+      else
+        @waiter.order_number = max + 1
+      end
     end
   end
 
@@ -72,6 +79,6 @@ class WaitersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def waiter_params
-      params.require(:waiter).permit(:name, :que_id, :order_number)
+      params.require(:waiter).permit(:name, :que_id, :order_number, :status)
     end
 end

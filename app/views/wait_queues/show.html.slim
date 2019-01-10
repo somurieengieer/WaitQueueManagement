@@ -48,6 +48,8 @@ table.table.table-striped
         | Waiter's Name
       th
         | Order
+      th
+        | Status
   tbody
     - @waiters.each do |waiter|
       tr
@@ -55,6 +57,8 @@ table.table.table-striped
           = waiter.name
         td
           = waiter.order_number
+        td
+          = waiter.status
 div.text-center
   = link_to 'Join this Wait Queue', new_waiter_path(que_id: @wait_queue.id), class: "btn btn-primary"
   br

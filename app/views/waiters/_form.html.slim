@@ -17,5 +17,8 @@
   .field
     = form.label :order_number
     = form.number_field :order_number
+  .field
+    = form.label :status
+    = form.select :status, options_for_select(Waiter.getStatusAry, :selected => @waiter.status)
   .actions
     = form.submit
