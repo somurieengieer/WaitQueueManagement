@@ -3,24 +3,25 @@ p#notice
 - if @login_administrator # TODO: othor user cannot view this page
   p
     strong
-      | Name:
+      | Wait_Queue's Name:
     = @wait_queue.name
   p
     strong
-      | Count:
+      | Order Count:
     = @wait_queue.count
   p
     strong
-      | Admin:
+      | Admin ID:
     = @wait_queue.admin_id
-  p
-    strong
-      | Reset time:
-    = @wait_queue.reset_time
   p
     strong
       | Auto reset:
     = @wait_queue.auto_reset
+  - if @wait_queue.auto_reset
+    p
+      strong
+        | Reset time:
+      = @wait_queue.reset_time
   = link_to 'Edit', edit_wait_queue_path(@wait_queue)
   |  | 
   = link_to 'Back', wait_queues_path
@@ -50,6 +51,7 @@ table.table.table-striped
         | Order
       th
         | Status
+      th
   tbody
     - @waiters.each do |waiter|
       tr
@@ -59,6 +61,15 @@ table.table.table-striped
           = waiter.order_number
         td
           = waiter.status
+        td
+          ul.ist-inline
+            li.list-inline-item
+              = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-primary"
+            li.list-inline-item
+              = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-danger"
+            li.list-inline-item
+              = link_to "Edit", edit_waiter_path(waiter), class: "btn btn-danger"
+
 div.text-center
   = link_to 'Join this Wait Queue', new_waiter_path(que_id: @wait_queue.id), class: "btn btn-primary"
   br

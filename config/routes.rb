@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 #  get 'sessions/new'
-  resources :waiters
+  resources :waiters do
+    member do
+      patch 'skip'
+      patch 'done'
+    end
+  end
   resources :administrators
   resources :wait_queues do
     member do

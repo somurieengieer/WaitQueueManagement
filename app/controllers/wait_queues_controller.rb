@@ -82,6 +82,18 @@ class WaitQueuesController < ApplicationController
     end
   end
 
+    # PATCH/PUT /wait_queues/1/reset
+  # PATCH/PUT /wait_queues/1/reset.json
+  def skip
+    respond_to do |format|
+      @wait_queue.count = 0
+      if @wait_queue.save
+        format.html { redirect_to @wait_queue, notice: 'Reset successfully.' }
+        format.json { render :show, status: :ok, location: @wait_queue }
+      end
+    end
+  end
+
   # DELETE /wait_queues/1
   # DELETE /wait_queues/1.json
   def destroy

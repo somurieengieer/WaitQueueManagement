@@ -1,8 +1,7 @@
 p#notice
   = notice
 h1
-  = link_to 'Top', root_path
-  |  > Wait Queues
+  | My Wait Queues
 table.table.table-striped
   thead
     tr
@@ -11,14 +10,14 @@ table.table.table-striped
       th
         | Name
       th
-        | Count
+        | Order Count
       th
-        | Admin
-      th
-        | Reset time
+        | Admin ID
       th
         | Auto reset
-      th[colspan="3"]
+      th
+        | Reset time
+      th[colspan="2"]
   tbody
     - @wait_queues.each do |wait_queue|
       tr
@@ -31,13 +30,11 @@ table.table.table-striped
         td
           = wait_queue.admin_id
         td
-          = wait_queue.reset_time
-        td
           = wait_queue.auto_reset
         td
-          = link_to 'Show', wait_queue
+          = wait_queue.reset_time
         td
-          = link_to 'Edit', edit_wait_queue_path(wait_queue)
+          = link_to 'Show', wait_queue
         td
           = link_to 'Destroy', wait_queue, method: :delete, data: { confirm: 'Are you sure?' }
 br

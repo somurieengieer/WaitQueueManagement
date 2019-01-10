@@ -1,5 +1,5 @@
 class WaitersController < ApplicationController
-  before_action :set_waiter, only: [:show, :edit, :update, :destroy]
+  before_action :set_waiter, only: [:show, :edit, :update, :destroy, :skip, :done]
 
   # GET /waiters
   # GET /waiters.json
@@ -61,6 +61,32 @@ class WaitersController < ApplicationController
     end
   end
 
+  # PATCH/PUT /waiters/1/skip
+  # PATCH/PUT /wait_queues/1/skip.json
+  def skip
+    respond_to do |format|
+      @waiter.status = Waiter.getStatusAry[1][1]
+      if @waiter.save
+        @wait_queue = WaitQueue.find(@waiter.que_id)
+        format.html { redirect_to @wait_queue, notice: 'Skip successfully.' }
+        format.json { render :show, status: :ok, location: @wait_queue }
+      end
+    end
+  end
+
+  # PATCH/PUT /waiters/1/done
+  # PATCH/PUT /wait_queues/1/done.json
+  def done
+    respond_to do |format|
+      @waiter.status = Waiter.getStatusAry[2][1]
+      if @waiter.save
+        @wait_queue = WaitQueue.find(@waiter.que_id)
+        format.html { redirect_to @wait_queue, notice: 'Done successfully.' }
+        format.json { render :show, status: :ok, location: @wait_queue }
+      end
+    end
+  end
+  
   # DELETE /waiters/1
   # DELETE /waiters/1.json
   def destroy
