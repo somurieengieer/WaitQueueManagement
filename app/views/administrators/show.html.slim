@@ -1,20 +1,31 @@
 p#notice
   = notice
-p
-  strong
-    | Your Name:
-  = @administrator.name
-p
-  strong
-    | Your Mail:
-  = @administrator.mail
-= link_to 'Edit', edit_administrator_path(@administrator)
-|  | 
-= link_to 'Back', administrators_path
-|  | 
-= link_to 'Destroy', @administrator, method: :delete, data: { confirm: 'Are you sure?' }
 
-table.table.table-striped.mt-3
+p
+  strong
+    | Your Profile
+  | (
+  = link_to 'Edit', edit_administrator_path(@administrator)
+  | |
+  = link_to 'Destroy', @administrator, method: :delete, data: { confirm: 'Are you sure?' }
+  | )
+
+table.table.mt-3.w-auto
+  tr
+    th
+      | Name
+    td
+      = @administrator.name
+  tr
+    th
+      | Mail
+    td
+      = @administrator.mail
+
+P.mt-5
+  strong
+    | Your Wait_Queue List
+table.table.table-striped
   thead
     tr
       th
