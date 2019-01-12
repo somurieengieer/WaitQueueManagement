@@ -84,7 +84,7 @@ table.table.table-striped.text-center
                 = link_to "Edit", edit_waiter_path(waiter), class: "btn btn-info"
 
 div.text-center
-  = link_to 'Join this Wait Queue', new_waiter_path(que_id: @wait_queue.id), class: "btn btn-primary"
+  = link_to 'Join this Wait Queue', new_waiter_path(wait_queue_id: @wait_queue.id), class: "btn btn-primary"
   br
   br
   string

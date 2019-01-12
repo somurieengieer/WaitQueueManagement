@@ -16,9 +16,9 @@ class WaitersController < ApplicationController
   def new
     @waiter = Waiter.new
     @waiter.status = Waiter.getStatusAry[0][1]
-    if params[:que_id]
-      @waiter.que_id = params[:que_id]
-      max = Waiter.where("que_id = ?", @waiter.que_id).maximum(:order_number)
+    if params[:wait_queue_id]
+      @waiter.wait_queue_id = params[:wait_queue_id]
+      max = Waiter.where("wait_queue_id = ?", @waiter.wait_queue_id).maximum(:order_number)
       if max.nil?
         @waiter.order_number = 1
       else
@@ -34,7 +34,7 @@ class WaitersController < ApplicationController
   # POST /waiters
   # POST /waiters.json
   def create
-    @waiter = Waiter.new(waiter_params)
+    @waiter = Waiter.new(waiter_params) # wait_queue_idは設定済み
 
     respond_to do |format|
       if @waiter.save
@@ -67,7 +67,7 @@ class WaitersController < ApplicationController
     respond_to do |format|
       @waiter.status = Waiter.getStatusAry[1][1]
       if @waiter.save
-        @wait_queue = WaitQueue.find(@waiter.que_id)
+        @wait_queue = WaitQueue.find(@waiter.wait_queue_id)
         format.html { redirect_to @wait_queue, notice: 'Skip successfully.' }
         format.json { render :show, status: :ok, location: @wait_queue }
       end
@@ -80,7 +80,7 @@ class WaitersController < ApplicationController
     respond_to do |format|
       @waiter.status = Waiter.getStatusAry[2][1]
       if @waiter.save
-        @wait_queue = WaitQueue.find(@waiter.que_id)
+        @wait_queue = WaitQueue.find(@waiter.wait_queue_id)
         format.html { redirect_to @wait_queue, notice: 'Done successfully.' }
         format.json { render :show, status: :ok, location: @wait_queue }
       end
@@ -105,6 +105,6 @@ class WaitersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def waiter_params
-      params.require(:waiter).permit(:name, :que_id, :order_number, :status)
+      params.require(:waiter).permit(:name, :wait_queue_id, :order_number, :status)
     end
 end

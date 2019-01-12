@@ -12,9 +12,9 @@ class WaitQueuesController < ApplicationController
   # GET /wait_queues/1
   # GET /wait_queues/1.json
   def show
-    @waiters = Waiter.where(que_id: @wait_queue.id)
+    @waiters = Waiter.where(wait_queue_id: @wait_queue.id)
     begin
-      next_waiter = Waiter.where(que_id: @wait_queue.id).where("order_number >= ?", @wait_queue.count).order('order_number').first
+      next_waiter = Waiter.where(wait_queue_id: @wait_queue.id).where("order_number >= ?", @wait_queue.count).order('order_number').first
       @nextWaiter_order = next_waiter.order_number
     rescue => e
       p e.message
@@ -119,7 +119,7 @@ class WaitQueuesController < ApplicationController
         file: nil,
       }
       new_waiter_fullpath = request.original_url.match(/(http.?\/\/*.+?)\//)[1] + \
-          Rails.application.routes.url_helpers.new_waiter_path + "?que_id=" + @wait_queue.id.to_s
+          Rails.application.routes.url_helpers.new_waiter_path + "?wait_queue_id=" + @wait_queue.id.to_s
       qr = RQRCode::QRCode.new(new_waiter_fullpath).as_png(options)
       $qrcode_tag = ChunkyPNG::Image.from_datastream(qr.resize(500,500).to_datastream).to_data_url
     end
