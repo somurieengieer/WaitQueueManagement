@@ -13,9 +13,18 @@ class WaitQueuesController < ApplicationController
   # GET /wait_queues/1.json
   def show
     @waiters = Waiter.where(wait_queue_id: @wait_queue.id)
+
+    nextWaiter = @wait_queue.waiters.where("status = ''").order('order_number').first
     begin
-      next_waiter = Waiter.where(wait_queue_id: @wait_queue.id).where("order_number >= ?", @wait_queue.count).order('order_number').first
-      @nextWaiter_order = next_waiter.order_number
+      @nextWaiter_order = nextWaiter.order_number
+    rescue => e
+      p e.message
+    end
+
+    currentWaiter = @wait_queue.waiters.where("status in (?)", [Waiter.getStatusAry[1][1], Waiter.getStatusAry[2][1]]).order('order_number DESC').first
+    begin
+      @wait_queue.count = currentWaiter.order_number 
+      @wait_queue.save
     rescue => e
       p e.message
     end

@@ -74,14 +74,24 @@ table.table.table-striped.text-center
         td
           = waiter.status
         td
-          - if waiter.order_number == @nextWaiter_order
             ul.ist-inline
               li.list-inline-item
-                = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-warning"
-              li.list-inline-item
-                = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-success"
-  /            li.list-inline-item
                 = link_to "Edit", edit_waiter_path(waiter), class: "btn btn-info"
+              - if waiter.order_number == @nextWaiter_order
+                li.list-inline-item
+                  = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-warning"
+                li.list-inline-item
+                  = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-success"
+              - else
+                li.list-inline-item
+                  = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-secondary disabled"
+                - if waiter.status == Waiter.getStatusAry[1][1]
+                  li.list-inline-item
+                    = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-success"
+                - else
+                  li.list-inline-item
+                    = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-secondary disabled"
+                
 
 div.text-center
   = link_to 'Join this Wait Queue', new_waiter_path(wait_queue_id: @wait_queue.id), class: "btn btn-primary"
