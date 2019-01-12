@@ -1,48 +1,59 @@
 p#notice
   = notice
 - if @login_administrator # TODO: othor user cannot view this page
-  p
-    strong
-      | Wait_Queue's Name:
-    = @wait_queue.name
-  p
-    strong
-      | Order Count:
-    = @wait_queue.count
-  p
-    strong
-      | Admin ID:
-    = @wait_queue.admin_id
-  p
-    strong
-      | Auto reset:
-    = @wait_queue.auto_reset
-  - if @wait_queue.auto_reset
+  div.text-center
     p
       strong
-        | Reset time:
-      = @wait_queue.reset_time
-  = link_to 'Edit', edit_wait_queue_path(@wait_queue)
-  |  | 
-  = link_to 'Back', wait_queues_path
-  |  | 
-  ul.ist-inline
-    li.list-inline-item
-      = form_with model: @wait_queue, local: true, url: countup_wait_queue_path do |f|
-        = f.submit "CountUp", class: "btn btn-primary"
-    li.list-inline-item
-      = form_with model: @wait_queue, local: true, url: reset_wait_queue_path do |f|
-        = f.submit "Reset", class: "btn btn-danger", data: { confirm: 'Are you sure?' }
-  br
-  p
-    string
-      | Show page under this line to your "waiter".
+        | Wait_Queue's Data
+      |  (
+      = link_to 'Edit', edit_wait_queue_path(@wait_queue)
+      |  | 
+      = link_to 'Destroy', @wait_queue, method: :delete, data: { confirm: 'Are you sure?' }
+      |  )
+
+    table.table.mt-3.w-auto.mx-auto
+      tr
+        th
+          | Wait_Queue's Name
+        td
+          = @wait_queue.name
+      tr
+        th
+          | Order Count
+        td
+          = @wait_queue.count
+      tr
+        th
+          | Admin ID
+        td
+          = @wait_queue.admin_id
+      tr
+        th
+          | Auto reset:
+        td
+          = @wait_queue.auto_reset
+      - if @wait_queue.auto_reset
+        tr
+          th
+            | Reset time:
+          td
+            = @wait_queue.reset_time
+    ul.ist-inline
+      li.list-inline-item
+        = form_with model: @wait_queue, local: true, url: countup_wait_queue_path do |f|
+          = f.submit "CountUp", class: "btn btn-primary"
+      li.list-inline-item
+        = form_with model: @wait_queue, local: true, url: reset_wait_queue_path do |f|
+          = f.submit "Reset", class: "btn btn-danger", data: { confirm: 'Are you sure?' }
   hr
+p.text-center.h3
+  strong
+    | Waut Queue(#{@wait_queue.name})
 div.text-center
   | current number is 
   h2
     =@wait_queue.count
-table.table.table-striped
+table.table.table-striped.text-center
   thead
     tr
       th
@@ -52,6 +63,7 @@ table.table.table-striped
       th
         | Status
       th
+        | Change Status
   tbody
     - @waiters.each do |waiter|
       tr
@@ -64,19 +76,17 @@ table.table.table-striped
         td
           ul.ist-inline
             li.list-inline-item
-              = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-primary"
+              = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-warning"
             li.list-inline-item
-              = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-danger"
-            li.list-inline-item
-              = link_to "Edit", edit_waiter_path(waiter), class: "btn btn-danger"
+              = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-success"
+/            li.list-inline-item
+              = link_to "Edit", edit_waiter_path(waiter), class: "btn btn-info"
 
 div.text-center
   = link_to 'Join this Wait Queue', new_waiter_path(que_id: @wait_queue.id), class: "btn btn-primary"
   br
-  string
-    = @qr_text
   br
   string
-    = @test
+    | Watch this Wait Queue outside. Read QR code on your Smart Phone.
   br
   img src=$qrcode_tag alt="qrcode_test"
