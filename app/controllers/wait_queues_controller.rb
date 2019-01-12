@@ -13,6 +13,12 @@ class WaitQueuesController < ApplicationController
   # GET /wait_queues/1.json
   def show
     @waiters = Waiter.where(que_id: @wait_queue.id)
+    begin
+      next_waiter = Waiter.where(que_id: @wait_queue.id).where("order_number >= ?", @wait_queue.count).order('order_number').first
+      @nextWaiter_order = next_waiter.order_number
+    rescue => e
+      p e.message
+    end
   end
 
   # GET /wait_queues/new
@@ -73,18 +79,6 @@ class WaitQueuesController < ApplicationController
   # PATCH/PUT /wait_queues/1/reset
   # PATCH/PUT /wait_queues/1/reset.json
   def reset
-    respond_to do |format|
-      @wait_queue.count = 0
-      if @wait_queue.save
-        format.html { redirect_to @wait_queue, notice: 'Reset successfully.' }
-        format.json { render :show, status: :ok, location: @wait_queue }
-      end
-    end
-  end
-
-    # PATCH/PUT /wait_queues/1/reset
-  # PATCH/PUT /wait_queues/1/reset.json
-  def skip
     respond_to do |format|
       @wait_queue.count = 0
       if @wait_queue.save

@@ -64,3 +64,6 @@ gem 'bcrypt', '~> 3.1.9'
 gem 'rmagick'
 gem 'rqrcode_png'
 gem 'ghostscript'
+
+gem 'ruby-debug-ide'
+gem 'debase'
