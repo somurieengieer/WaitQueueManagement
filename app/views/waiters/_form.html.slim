@@ -12,13 +12,13 @@
     = form.label :name
     = form.text_field :name
   .field
-    = form.label :wait_queue_id
-    = form.number_field :wait_queue_id
+    = form.hidden_field :wait_queue_id
   .field
     = form.label :order_number
     = form.number_field :order_number
-  .field
-    = form.label :status
-    = form.select :status, options_for_select(Waiter.getStatusAry, :selected => @waiter.status)
+  - if @login_administrator
+    .field
+      = form.label :status
+      = form.select :status, options_for_select(Waiter.getStatusAry, :selected => @waiter.status)
   .actions
     = form.submit
