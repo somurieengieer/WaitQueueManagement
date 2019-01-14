@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
     admin = Administrator.find_by(mail: session_params[:email])
     if admin&.authenticate(session_params[:password])
       session[:admin_id] = admin.id
-      redirect_to root_path, notice: 'Login Successful'
+      redirect_to root_path, notice: "Login Successful. Hello \"#{admin.name}\""
     else
-      redirect_to login_path, notice: 'Login Faild2'
+      redirect_to login_path, notice: 'Login Faild. type correct e-mail and password.'
     end
   end
 

@@ -1,7 +1,7 @@
 
 class WaitQueuesController < ApplicationController
   before_action :set_wait_queue, only: [:show, :edit, :update, :destroy]
-  before_action :create_qr, only: [:show, :create, :update]
+  before_action :create_qr, only: [:show, :update]
 
   # GET /wait_queues
   # GET /wait_queues.json
@@ -50,6 +50,7 @@ class WaitQueuesController < ApplicationController
 
     respond_to do |format|
       if @wait_queue.save
+        create_qr # create QR code after issuing wait_queue ID
         format.html { redirect_to @wait_queue, notice: 'Wait queue was successfully created.' }
         format.json { render :show, status: :created, location: @wait_queue }
       else
@@ -103,9 +104,9 @@ class WaitQueuesController < ApplicationController
         module_px_size: 5,
         file: nil,
       }
-      new_waiter_fullpath = request.original_url.match(/(http.?\/\/*.+?)\//)[1] + \
-          Rails.application.routes.url_helpers.new_waiter_path + "?wait_queue_id=" + @wait_queue.id.to_s
-      qr = RQRCode::QRCode.new(new_waiter_fullpath).as_png(options)
+      wait_queue_fullpath = request.original_url.match(/(http.?\/\/*.+?)\//)[1] + \
+          Rails.application.routes.url_helpers.wait_queue_path(@wait_queue.id)
+      qr = RQRCode::QRCode.new(wait_queue_fullpath).as_png(options)
       $qrcode_tag = ChunkyPNG::Image.from_datastream(qr.resize(500,500).to_datastream).to_data_url
     end
 end
