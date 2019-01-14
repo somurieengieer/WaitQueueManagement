@@ -1,6 +1,6 @@
 
 class WaitQueuesController < ApplicationController
-  before_action :set_wait_queue, only: [:show, :edit, :update, :destroy]
+  before_action :set_wait_queue, only: [:show, :edit, :update, :destroy, :viewmode, :viewmodeoff]
   before_action :create_qr, only: [:show, :update]
 
   # GET /wait_queues
@@ -12,21 +12,49 @@ class WaitQueuesController < ApplicationController
   # GET /wait_queues/1
   # GET /wait_queues/1.json
   def show
-    @waiters = Waiter.where(wait_queue_id: @wait_queue.id)
+    respond_to do |format|
+      format.html {
+        @waiters = Waiter.where(wait_queue_id: @wait_queue.id)
 
-    nextWaiter = @wait_queue.waiters.where("status = ''").order('order_number').first
-    begin
-      @nextWaiter_order = nextWaiter.order_number
-    rescue => e
-      p e.message
+        nextWaiter = @wait_queue.waiters.where("status = ''").order('order_number').first
+        begin
+          @nextWaiter_order = nextWaiter.order_number
+        rescue => e
+          p e.message
+        end
+
+        currentWaiter = @wait_queue.waiters.where("status in (?)", [Waiter.getStatusAry[1][1], Waiter.getStatusAry[2][1]]).order('order_number DESC').first
+        begin
+          @wait_queue.count = currentWaiter.order_number 
+          @wait_queue.save
+        rescue => e
+          p e.message
+        end
+      }
+      format.js {}
     end
+  end
 
-    currentWaiter = @wait_queue.waiters.where("status in (?)", [Waiter.getStatusAry[1][1], Waiter.getStatusAry[2][1]]).order('order_number DESC').first
-    begin
-      @wait_queue.count = currentWaiter.order_number 
-      @wait_queue.save
-    rescue => e
-      p e.message
+  # GET /wait_queues/1/viewmode
+  # GET /wait_queues/1/viewmode.json
+  def viewmode
+    session[:store_view_mode] = true
+    redirect_to @wait_queue, notice: "View Mode On"
+  end
+
+  # POST /wait_queues/1/viewmodeoff
+  # POST /wait_queues/1/viewmodeoff.json
+  def viewmodeoff
+    respond_to do |format|
+      format.html {
+        admin = Administrator.find(session[:admin_id])
+        if admin&.authenticate(params[:password])
+          session.delete(:store_view_mode)
+          redirect_to @wait_queue, notice: "View Mode Off"
+        else
+          redirect_to @wait_queue, notice: "Password Faild."
+        end
+      }
     end
   end
 

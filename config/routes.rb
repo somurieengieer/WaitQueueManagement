@@ -7,7 +7,12 @@ Rails.application.routes.draw do
     end
   end
   resources :administrators
-  resources :wait_queues
+  resources :wait_queues do
+    member do
+      get 'viewmode'
+      post 'viewmodeoff'
+    end
+  end
   root 'top#index'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

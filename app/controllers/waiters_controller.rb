@@ -64,7 +64,7 @@ class WaitersController < ApplicationController
   # PATCH/PUT /waiters/1/skip
   # PATCH/PUT /wait_queues/1/skip.json
   def skip
-    respond_to do |format|
+    respond_to do |format| # format.jsonとformat.htmlで条件分けできる。
       @waiter.status = Waiter.getStatusAry[1][1]
       if @waiter.save
         @wait_queue = WaitQueue.find(@waiter.wait_queue_id)
