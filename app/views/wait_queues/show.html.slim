@@ -1,103 +1,101 @@
-p#notice
-  = notice
-- if @login_administrator # TODO: othor user cannot view this page
-  div.text-center
-    p
-      strong
-        | Wait_Queue's Data
-      |  (
-      = link_to 'Edit', edit_wait_queue_path(@wait_queue)
-      |  | 
-      = link_to 'Destroy', @wait_queue, method: :delete, data: { confirm: 'Are you sure?' }
-      |  )
+div.container
+  p#notice
+    = notice
+  - if @login_administrator # TODO: othor user cannot view this page
+    div.text-center
+      p
+        strong
+          | Wait_Queue's Data
+        |  (
+        = link_to 'Edit', edit_wait_queue_path(@wait_queue)
+        |  | 
+        = link_to 'Destroy', @wait_queue, method: :delete, data: { confirm: 'Are you sure?' }
+        |  )
 
-    table.table.mt-3.w-auto.mx-auto
-      tr
-        th
-          | Wait_Queue's Name
-        td
-          = @wait_queue.name
-      tr
-        th
-          | Order Count
-        td
-          = @wait_queue.count
-      tr
-        th
-          | Admin ID
-        td
-          = @wait_queue.admin_id
-      tr
-        th
-          | Auto reset:
-        td
-          = @wait_queue.auto_reset
-      - if @wait_queue.auto_reset
+      table.table.mt-3.w-auto.mx-auto
         tr
           th
-            | Reset time:
+            | Wait_Queue's Name
           td
-            = @wait_queue.reset_time
-    ul.ist-inline
-      li.list-inline-item
-        = form_with model: @wait_queue, local: true, url: countup_wait_queue_path do |f|
-          = f.submit "CountUp", class: "btn btn-primary"
-      li.list-inline-item
-        = form_with model: @wait_queue, local: true, url: reset_wait_queue_path do |f|
-          = f.submit "Reset", class: "btn btn-danger", data: { confirm: 'Are you sure?' }
-  hr
-p.text-center.h3
-  strong
-    | Waut Queue(#{@wait_queue.name})
-div.text-center
-  | current number is 
-  h2
-    =@wait_queue.count
-table.table.table-striped.text-center
-  thead
-    tr
-      th
-        | Waiter's Name
-      th
-        | Order
-      th
-        | Status
-      th
-        | Change Status
-  tbody
-    - @waiters.each do |waiter|
+            = @wait_queue.name
+        tr
+          th
+            | Order Count
+          td
+            = @wait_queue.count
+        tr
+          th
+            | Admin ID
+          td
+            = @wait_queue.admin_id
+        tr
+          th
+            | Auto reset:
+          td
+            = @wait_queue.auto_reset
+        - if @wait_queue.auto_reset
+          tr
+            th
+              | Reset time:
+            td
+              = @wait_queue.reset_time
+    br
+    hr
+  p.text-center.h3
+    strong
+      | Waut Queue(#{@wait_queue.name})
+  div.text-center
+    | current number is 
+    h2
+      =@wait_queue.count
+  table.table.table-striped.text-center
+    thead
       tr
-        td
-          = waiter.name
-        td
-          = waiter.order_number
-        td
-          = waiter.status
-        td
-            ul.ist-inline
-              li.list-inline-item
-                = link_to "Edit", edit_waiter_path(waiter), class: "btn btn-info"
-              - if waiter.order_number == @nextWaiter_order
+        th
+          | Waiter's Name
+        th
+          | Order
+        th
+          | Status
+        - if @login_administrator # TODO: othor user cannot view this page
+          th
+            | Change Status
+    tbody
+      - @waiters.each do |waiter|
+        tr
+          td
+            = waiter.name
+          td
+            = waiter.order_number
+          td
+            = waiter.status
+          - if @login_administrator # TODO: othor user cannot view this page
+            td
+              ul.ist-inline
                 li.list-inline-item
-                  = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-warning"
-                li.list-inline-item
-                  = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-success"
-              - else
-                li.list-inline-item
-                  = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-secondary disabled"
-                - if waiter.status == Waiter.getStatusAry[1][1]
+                  = link_to "Edit", edit_waiter_path(waiter), class: "btn btn-info"
+                - if waiter.order_number == @nextWaiter_order
+                  li.list-inline-item
+                    = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-warning"
                   li.list-inline-item
                     = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-success"
                 - else
                   li.list-inline-item
-                    = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-secondary disabled"
-                
+                    = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-secondary disabled"
+                  - if waiter.status == Waiter.getStatusAry[1][1]
+                    li.list-inline-item
+                      = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-success"
+                  - else
+                    li.list-inline-item
+                      = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-secondary disabled"
+                  
 
-div.text-center
-  = link_to 'Join this Wait Queue', new_waiter_path(wait_queue_id: @wait_queue.id), class: "btn btn-primary"
-  br
-  br
-  string
-    | Watch this Wait Queue outside. Read QR code on your Smart Phone.
-  br
-  img src=$qrcode_tag alt="qrcode_test"
+  - if @login_administrator # TODO: othor user cannot view this page
+    div.text-center
+      = link_to 'Join this Wait Queue', new_waiter_path(wait_queue_id: @wait_queue.id), class: "btn btn-primary"
+      br
+      br
+      string
+        | Watch this Wait Queue outside. Read QR code on your Smart Phone.
+      br
+      img src=$qrcode_tag alt="qrcode_test"

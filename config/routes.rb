@@ -7,12 +7,7 @@ Rails.application.routes.draw do
     end
   end
   resources :administrators
-  resources :wait_queues do
-    member do
-      patch 'countup'
-      patch 'reset'
-    end
-  end
+  resources :wait_queues
   root 'top#index'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
