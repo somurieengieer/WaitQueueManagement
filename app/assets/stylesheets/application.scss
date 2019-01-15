@@ -1,1 +1,7 @@
 @import "bootstrap";
+
+@media (max-width:1023px) {
+    html {
+        font-size: 2em;
+    }
+}

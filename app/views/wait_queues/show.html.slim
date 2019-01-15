@@ -96,12 +96,18 @@ div.container
       br
       br
       string
-        | Watch this Wait Queue outside. Read QR code on your Smart Phone.
+        | Read QR code on your Smart Phone.
+        br
+        | Watch this Wait Queue outside.
       br
       img src=$qrcode_tag alt="entry_qrcode"
       br
   - if @login_administrator && !@store_view_mode # TODO: othor user cannot view this page
     .text-center
+      | Click ViewMode Button when you finish setting and want to show WaitQueue on your store.
+      br
+      | ViewMode makes User enable to edit WaitQueue setting but only entry.
+      br
       = link_to 'View Mode', viewmode_wait_queue_path(@wait_queue), class: "btn btn-primary"
 
 div#exampleModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -115,9 +121,9 @@ div#exampleModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="example
             span aria-hidden="true"
               | &times;
         div.modal-body
-          | Type your password to exit view mode.
+          | Confirm your password to exit view mode.
           .field
-            = form.label "confirm_password"
+            = form.label "Password"
             = form.text_field :password
 
         div.modal-footer
