@@ -9,7 +9,14 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - .:/usr/src/sampleproject
+      - .:/usr/src/WaitQueueProject
+        # .dockerignoreに今は記載済み。どちらが良いか判別つかないため一旦コメントアウト
+        # exclude volumes(空のhogeをマウントさせる)
+#      - hoge:/usr/src/WaitQueueProject/app/vendor
+#      - hoge:/usr/src/WaitQueueProject/app/tmp
+#      - hoge:/usr/src/WaitQueueProject/app/log
+#      - hoge:/usr/src/WaitQueueProject/app/.git
+#      - hoge:/usr/src/WaitQueueProject/db_init
     links:
       - mysql
   mysql:
@@ -20,6 +27,8 @@ services:
       - '3306:3306'
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./db_init:/docker-entrypoint-initdb.d
 volumes:
   mysql-data:
     driver: local
+  hoge:
