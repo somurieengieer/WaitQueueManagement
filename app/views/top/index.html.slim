@@ -4,29 +4,59 @@ html
     title
       | Sampleproject Top Page
   body
-    table.table.table-striped
-      thead
-        tr
-          th
-            | Link
-      tbody
-        tr
-          td
-            = link_to "Administrators list", administrators_path
-        tr
-          td
-            = link_to "Wait_Queues list", wait_queues_path
-        tr
-          td
-            = link_to "Waiters list", waiters_path
+    div.my-5
+    = form_with(model: @administrator, local: true) do |form|
+      div.container
+        div.row.justify-content-center
+          div.col-6
+            table.table.table-striped
+              thead
+                tr
+                  th colspan=2
+                    | Login
+              tbody
+                tr
+                  td
+                    | Mail Address
+                  td
+                    .field
+                      = form.text_field :mail
+                tr
+                  td
+                    | Password
+                  td
+                    .field
+                      = form.text_field :password
+            div.row
+              div.col-6.text-center
+                .actions
+                  = form.submit "Sign in", class: "btn btn-primary"
+              div.col-6.text-center
+                = link_to "Sign up", new_administrator_path, class: "btn btn-success"
+    - if false
+      table.table.table-striped
+        thead
+          tr
+            th
+              | Link
+        tbody
+          tr
+            td
+              = link_to "Administrators list", administrators_path
+          tr
+            td
+              = link_to "Wait_Queues list", wait_queues_path
+          tr
+            td
+              = link_to "Waiters list", waiters_path
 
-    table.table.table-striped
-      thead
-        tr
-          th
-            | Your Wait Queue's Link
-      tbody
-        tr
-          td
-            - if @wait_queue
-              = link_to @wait_queue.name, @wait_queue
+      table.table.table-striped
+        thead
+          tr
+            th
+              | Your Wait Queue's Link
+        tbody
+          tr
+            td
+              - if @wait_queue
+                = link_to @wait_queue.name, @wait_queue

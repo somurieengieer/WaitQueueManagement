@@ -5,6 +5,7 @@ class TopController < ApplicationController
         @administrator = Administrator.find_by(id: admin_id)
         if !@administrator
             reset_session
+            @administrator = Administrator.new
         else
             redirect_to administrator_url(id: admin_id)
         end
