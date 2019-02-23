@@ -1,7 +1,10 @@
-FROM ruby:2.5.3 # 使用するベースイメージを選択(IMAGE:TAG)
+# 使用するベースイメージを選択(IMAGE:TAG)
+FROM ruby:2.5.3
 
-ENV APP_ROOT /usr/src/WaitQueueProject # ENVにより環境変数APP_ROOTを設定
-WORKDIR $APP_ROOT # $APP_ROOTを作業ディレクトリにする
+# ENVにより環境変数APP_ROOTを設定
+ENV APP_ROOT /usr/src/WaitQueueProject
+# $APP_ROOTを作業ディレクトリにする
+WORKDIR $APP_ROOT
 
 RUN apt-get update && \
     curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
