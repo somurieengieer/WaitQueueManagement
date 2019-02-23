@@ -1,7 +1,8 @@
 h1
   | Editing Administrator
 = render 'form', administrator: @administrator
-ul.list-inline
-= link_to 'Cancel Edit', @administrator, class: "btn btn-secondary list-inline-item"
-
-= link_to 'Destroy', @administrator, method: :delete, class: "btn btn-danger list-inline-item", data: { confirm: 'Are you sure?' }
+/div.row.justify-content-center
+  ul.list-inline
+    = link_to 'Cancel', @administrator, class: "btn btn-secondary list-inline-item"
+/    = link_to 'Destroy', @administrator, method: :delete, class: "btn btn-danger list-inline-item", data: { confirm: 'Are you sure?' }
+/     ->Destroyは#showに移動済

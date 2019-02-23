@@ -1,26 +1,30 @@
 p#notice
   = notice
 
-p
-  strong
-    | Your Profile
-  | (
-  = link_to 'Edit', edit_administrator_path(@administrator)
-  | |
-  = link_to 'Destroy', @administrator, method: :delete, data: { confirm: 'Are you sure?' }
-  | )
+div.container
+  div.row.justify-content-center
+    div style="width:400px"
+      dl.row
+        dt.col-3
+          = :name
+        dd.col-9.w-100
+          = @administrator.name
+        dt.col-3
+          = :mail
+        dd.col-9
+          = @administrator.mail
+        dt.col-3
+          = :password
+        dd.col-9
+          = @administrator.password
+      div.row.justify-content-center
+        ul.list-inline
+          li.list-inline-item
+            = link_to 'Edit', edit_administrator_path(@administrator), class: "btn btn-secondary list-inline-item"
+          li.list-inline-item
+            = link_to 'Destroy', @administrator, method: :delete, class: "btn btn-danger list-inline-item", data: { confirm: 'Are you sure?' }
 
-table.table.mt-3.w-auto
-  tr
-    th
-      | Name
-    td
-      = @administrator.name
-  tr
-    th
-      | Mail
-    td
-      = @administrator.mail
+
 
 P.mt-5
   strong
@@ -41,3 +45,5 @@ table.table.table-striped
         td
           = wait_queue.count
 = link_to 'Create New "Wait_Queue"', new_wait_queue_path
+
+

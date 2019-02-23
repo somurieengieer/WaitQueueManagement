@@ -1,24 +1,35 @@
-= form_with(model: administrator, local: true) do |form|
-  - if administrator.errors.any?
-    #error_explanation
-      h2
-        = pluralize(administrator.errors.count, "error")
-        |  prohibited this administrator from being saved:
-      ul
-        - administrator.errors.full_messages.each do |message|
-          li
-            = message
-  .field
-    = form.label :name
-    = form.text_field :name
-  .field
-    = form.label :mail
-    = form.text_field :mail
-  .field
-    = form.label :password
-    = form.text_field :password
-  .field
-    = form.label :password_confirmation
-    = form.text_field :password_confirmation
-  .actions
-    = form.submit class: "btn btn-primary"
+div.container
+  div.row.justify-content-center
+    div style="width:400px"
+        = form_with(model: administrator, local: true, class: "table table-striped") do |form|
+          div.row
+            - if administrator.errors.any?
+              #error_explanation
+                h2
+                  = pluralize(administrator.errors.count, "error")
+                  |  prohibited this administrator from being saved:
+                ul
+                  - administrator.errors.full_messages.each do |message|
+                    li
+                      = message
+          dl.row
+            dt.col-3
+              = form.label :name
+            dd.col-9.w-100
+              = form.text_field :name
+            dt.col-3
+              = form.label :mail
+            dd.col-9
+              = form.text_field :mail
+            dt.col-3
+              = form.label :password
+            dd.col-9
+              = form.text_field :password
+              = form.text_field :password_confirmation
+          div.row.justify-content-center
+            ul.list-inline
+              li.list-inline-item
+                = link_to 'Back', :back, class: "btn btn-secondary", data: { confirm: 'Are you sure?' }
+              li.list-inline-item
+                .actions
+                  = form.submit "Update", class: "btn btn-primary"
