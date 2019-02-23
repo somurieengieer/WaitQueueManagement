@@ -5,3 +5,36 @@
         font-size: 2em;
     }
 }
+.sideMenu li {
+    list-style:none;
+}
+.sideMenu li a {
+    @extend .sideBar;
+    display:block;
+    text-decoration: none;
+}
+.sideMenu li a.active {
+    @extend .accent;
+}
+.sideMenu li a:hover:not(.active) {
+    color: green;
+    background-color: #cfefef;
+    font-weight: bold;
+}
+
+// カラー参考 https://www.tagindex.com/color/pattern/073.html
+.background {
+    background-color: #edf7fa;
+}
+.menuBar {
+    background-color: #50aba9;
+    color: white;
+}
+.sideBar {
+    background-color: #c2e2e1;
+    color: black;
+}
+.accent {
+    background-color: #95cc4a;
+    color: white;
+}

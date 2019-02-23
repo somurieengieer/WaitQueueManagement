@@ -1,31 +1,49 @@
 p#notice
   = notice
 
-div.container
-  div.row.justify-content-center
-    div style="width:400px"
-      dl.row
-        dt.col-3
-          = :name
-        dd.col-9.w-100
-          = @administrator.name
-        dt.col-3
-          = :mail
-        dd.col-9
-          = @administrator.mail
-        dt.col-3
-          = :password
-        dd.col-9
-          = @administrator.password
-      div.row.justify-content-center
-        ul.list-inline
-          li.list-inline-item
-            = link_to 'Edit', edit_administrator_path(@administrator), class: "btn btn-secondary list-inline-item"
-          li.list-inline-item
-            = link_to 'Destroy', @administrator, method: :delete, class: "btn btn-danger list-inline-item", data: { confirm: 'Are you sure?' }
+/ ユーザー情報
+div.container style="width: 800px"
+  div.row.menuBar
+    h3.pl-3
+      | User Profile
+  div.row
+    div.col-3.p-0.sideBar
+      ul.list-group.sideMenu
+        li.list-group-item.p-0
+          = link_to "list1", "#", class:"p-1 active"
+        li.list-group-item.p-0
+          = link_to "list2", "#", class:"p-1"
+        li.list-group-item.p-0
+          = link_to "list3", "#", class:"p-1"
+        
+    div.col-9.border
+      div.p-5 style="width:400px"
+        dl.row
+          dt.col-3
+            = :name
+          dd.col-9
+            = @administrator.name
+          dt.col-3
+            = :mail
+          dd.col-9
+            = @administrator.mail
+          dt.col-3
+            = :password
+          dd.col-9
+            | ********
+        div.row.justify-content-center.mt-5
+          ul.list-inline
+            li.list-inline-item
+              = link_to 'Edit', edit_administrator_path(@administrator), class: "btn btn-secondary list-inline-item"
+            li.list-inline-item
+              = link_to 'Destroy', @administrator, method: :delete, class: "btn btn-danger list-inline-item", data: { confirm: 'Are you sure?' }
 
+  div.row.menuBar.mt-5
+    h3.pl-3
+      | Your Wait_Queue List
+    
 
-
+/ WaitQueue情報
 P.mt-5
   strong
     | Your Wait_Queue List
