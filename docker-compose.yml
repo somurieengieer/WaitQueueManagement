@@ -6,8 +6,11 @@ services:
       RAILS_ENV: development
       DATABASE_URL: mysql2://root:pass@mysql:3306
       MYSQL_ROOT_PASSWORD: 'pass'
+      # DISABLE_SPRING: "1"
     ports:
       - '3000:3000'
+      - '1234:1234'
+      - '26162:26162'
     volumes:
       - .:/usr/src/WaitQueueProject
         # .dockerignoreに今は記載済み。どちらが良いか判別つかないため一旦コメントアウト

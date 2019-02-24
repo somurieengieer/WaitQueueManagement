@@ -28,5 +28,6 @@ RUN \
 
 COPY . $APP_ROOT
 
-EXPOSE  3000
-CMD ["rails", "server", "-b", "0.0.0.0"]
+EXPOSE 3000 1234 26162
+#CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "rdebug-ide", "--host", "0.0.0.0", "--port", "1234", "--dispatcher-port", "26162", "--", "bin/rails", "server", "-b", "0.0.0.0"]
