@@ -6,4 +6,8 @@ class WaitQueue < ApplicationRecord
 #    validates :admin_id, uniqueness: { case_sensitive: false } # case_sensitive:false subtend Upper/Lower case 
 
     has_many :waiters
+
+    def print_created_at
+        created_at.strftime("%Y/%m/%d %H:%M:%S")
+    end
 end

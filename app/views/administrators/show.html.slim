@@ -38,30 +38,28 @@ div.container style="width: 800px"
             li.list-inline-item
               = link_to 'Destroy', @administrator, method: :delete, class: "btn btn-danger list-inline-item", data: { confirm: 'Are you sure?' }
 
-  div.row.menuBar.mt-5
+div.container.my-5 style="width: 800px"
+  div.row.menuBar
     h3.pl-3
       | Your Wait_Queue List
-    
-
-/ WaitQueue情報
-P.mt-5
-  strong
-    | Your Wait_Queue List
-table.table.table-striped
-  thead
-    tr
-      th
-        | Wait queue's name
-      th
-        | Current order
-  tbody
-    - @wait_queues.each do | wait_queue|
-      tr
-        td
-          = link_to wait_queue.name, wait_queue
-          /= wait_queue.name
-        td
-          = wait_queue.count
-= link_to 'Create New "Wait_Queue"', new_wait_queue_path
-
-
+  div.row
+    table.table.table-striped
+      thead
+        tr
+          th.col-6
+            | QueueName
+          th.col-3
+            | QueueNumber
+          th.col-3
+            | Created At
+      tbody
+        - @wait_queues.each do | wait_queue|
+          tr
+            td.col-5
+              = link_to wait_queue.name, wait_queue
+            td.col-3
+              = wait_queue.count
+            td.col-3
+              = wait_queue.print_created_at
+  div.row.justify-content-center
+    = link_to 'Create New "Wait_Queue"', new_wait_queue_path, class: "btn btn-primary list-inline-item"
