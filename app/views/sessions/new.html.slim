@@ -3,8 +3,8 @@ p#notice
   = notice
 = form_with scope: :session, local: true do |f|
   .form-group
-    = f.label :email, 'E-Mail'
-    = f.text_field :email, class: 'form-control', id: 'session_email'
+    = f.label :mail, 'E-Mail'
+    = f.text_field :mail, class: 'form-control', id: 'session_mail'
   .form-group
     = f.label :password, 'Password'
     = f.password_field :password, class: 'form-control', id: 'session_password'
