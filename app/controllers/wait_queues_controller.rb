@@ -40,6 +40,7 @@ class WaitQueuesController < ApplicationController
   def viewmode
     session[:store_view_mode] = true
     @waiters = Waiter.where(wait_queue_id: @wait_queue.id)
+    reflesh_store_view_mode
     render 'show_store'
     # redirect_to  @wait_queue, notice: "View Mode On"
   end
