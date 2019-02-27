@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     member do
       get 'viewmode'
       post 'viewmodeoff'
+      get 'mobilemode'
     end
   end
   root 'top#index'

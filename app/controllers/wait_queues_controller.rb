@@ -23,8 +23,8 @@ class WaitQueuesController < ApplicationController
           p e.message
         end
 
-        currentWaiter = @wait_queue.waiters.where("status in (?)", [Waiter.getStatusAry[1][1], Waiter.getStatusAry[2][1]]).order('order_number DESC').first
         begin
+          currentWaiter = @wait_queue.waiters.where("status in (?)", [Waiter.getStatusAry[1][1], Waiter.getStatusAry[2][1]]).order('order_number DESC').first
           @wait_queue.count = currentWaiter.order_number 
           @wait_queue.save
         rescue => e
@@ -39,7 +39,9 @@ class WaitQueuesController < ApplicationController
   # GET /wait_queues/1/viewmode.json
   def viewmode
     session[:store_view_mode] = true
-    redirect_to @wait_queue, notice: "View Mode On"
+    @waiters = Waiter.where(wait_queue_id: @wait_queue.id)
+    render 'show_store'
+    # redirect_to  @wait_queue, notice: "View Mode On"
   end
 
   # POST /wait_queues/1/viewmodeoff
@@ -54,6 +56,15 @@ class WaitQueuesController < ApplicationController
         else
           redirect_to @wait_queue, notice: "Password Faild."
         end
+      }
+    end
+  end
+
+  # GET /wait_queues/1/mobilemode
+  # GET /wait_queues/1/mobilemode.json
+  def mobilemode
+    respond_to do |format|
+      format.html {
       }
     end
   end

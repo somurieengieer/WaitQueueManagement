@@ -1,0 +1,40 @@
+p#notice
+  = notice
+
+div.container
+  = render partial: "show_wait_queue_list"
+
+div.text-center
+  = link_to 'Join this Wait Queue', new_waiter_path(wait_queue_id: @wait_queue.id), class: "btn btn-primary"
+  br
+  br
+  string
+    | Read QR code on your Smart Phone.
+    br
+    | Watch this Wait Queue outside.
+  br
+  img src=$qrcode_tag alt="entry_qrcode"
+  br
+
+/ ロック画面を解除するためのダイアログ
+div#exampleModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  div.modal-dialog role="document"
+    div.modal-content
+      = form_with(model: nil, url: viewmodeoff_wait_queue_url, method: :post, local: true) do |form|
+        div.modal-header
+          h5#exampleModalLabel.modal-title
+            | Authentication
+          button.close data-dismiss="modal" aria-label="Close"
+            span aria-hidden="true"
+              | &times;
+        div.modal-body
+          | Confirm your password to exit view mode.
+          .field
+            = form.label "Password"
+            = form.text_field :password
+
+        div.modal-footer
+          .actions
+            = form.submit "Exit View Mode", class: "btn btn-primary"
+          button.btn.btn-secondary data-dismiss="modal"
+            | Cancel

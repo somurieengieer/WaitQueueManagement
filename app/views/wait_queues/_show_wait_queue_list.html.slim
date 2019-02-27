@@ -1,0 +1,47 @@
+p.text-center.h3
+  strong
+    | Waut Queue(#{@wait_queue.name})
+div.text-center
+  | current number is 
+  h2
+    =@wait_queue.count
+table.table.table-striped.text-center
+  thead
+    tr
+      th
+        | Waiter's Name
+      th
+        | Order
+      th
+        | Status
+      - if @login_administrator # TODO: othor user cannot view this page
+        th
+          | Change Status
+  tbody
+    - @waiters.each do |waiter|
+      tr
+        td
+          = waiter.name
+        td
+          = waiter.order_number
+        td
+          = waiter.status
+        td
+          - if @login_administrator # TODO: othor user cannot view this page
+            ul.ist-inline
+              li.list-inline-item
+                = link_to "Edit", edit_waiter_path(waiter), class: "btn btn-info"
+              - if waiter.order_number == @nextWaiter_order
+                li.list-inline-item
+                  = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-warning"
+                li.list-inline-item
+                  = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-success"
+              - else
+                li.list-inline-item
+                  = link_to "Skip", skip_waiter_path(waiter), method: "PATCH", class: "btn btn-secondary disabled"
+                - if waiter.status == Waiter.getStatusAry[1][1]
+                  li.list-inline-item
+                    = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-success"
+                - else
+                  li.list-inline-item
+                    = link_to "Done", done_waiter_path(waiter), method: "PATCH", class: "btn btn-secondary disabled"
