@@ -18,9 +18,9 @@ div.text-center
 
 / ロック画面を解除するためのダイアログ
 div#exampleModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-  div.modal-dialog role="document"
+  div.modal-dialog.modal-dialog-centered role="document" data-keyboard="true"
     div.modal-content
-      = form_with(model: nil, url: viewmodeoff_wait_queue_url, method: :post, local: true) do |form|
+      = form_with(model: nil, url: viewmodeoff_wait_queue_url, method: :post, local: true, html: {id: "dialogForm"}) do |form|
         div.modal-header
           h5#exampleModalLabel.modal-title
             | Authentication
@@ -36,5 +36,15 @@ div#exampleModal.modal.fade tabindex="-1" role="dialog" aria-labelledby="example
         div.modal-footer
           .actions
             = form.submit "Exit View Mode", class: "btn btn-primary"
-          button.btn.btn-secondary data-dismiss="modal"
+          /button.btn.btn-secondary data-dismiss="modal"
             | Cancel
+javascript:
+  $('#exampleModal').on('shown.bs.modal', function () {
+    $('input[type="text"]').first().focus();
+  });
+  $("#exampleModal").on( 'keypress', function(event) {
+    if(event.keyCode === 13) {
+      $("#dialogForm").submit();
+      return false;
+    }
+  });
