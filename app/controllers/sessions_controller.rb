@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       # redirect_to root_path, notice: "Login Successful. Hello \"#{admin.name}\""
       redirect_to admin, notice: "Login Successful. Hello \"#{admin.name}\""
     else
-      redirect_to login_path, notice: 'Login Faild. type correct e-mail and password.'
+      redirect_to root_path, notice: 'Login Faild. type correct e-mail and password.'
     end
   end
 

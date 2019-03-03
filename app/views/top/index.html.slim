@@ -4,6 +4,8 @@ html style="height:100%;"
     title
       | Sampleproject Top Page
   body style="height:100%;"
+    p#notice
+      = notice
     div.d-flex.align-items-center.justify-content-center.text-center style="height:100%"
       div style="width: 300px;"
         = form_with scope: :session, local: true, url: login_path do |f|
